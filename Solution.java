@@ -100,9 +100,34 @@ public class Solution {
             // this.adjacencyList[dest].add(src); // in case of undirected graph
         }
 
+        public void dfs(int src) {
+            boolean[] visited = new boolean[vertices];
+            dfsUtil(src, visited);
+        }
+
+        private void dfsUtil(int src, boolean[] visited) {
+            visited[src] = true;
+            System.out.println(src);
+            Node<Integer> currentNodeHead = adjacencyList[src];
+            while (currentNodeHead != null) {
+                int current = currentNodeHead.data;
+                if (visited[current] == false)
+                    dfsUtil(current, visited);
+                currentNodeHead = currentNodeHead.next;
+            }
+        }
+
     }
 
     public static void main(String[] args) {
+        Graph graph = new Graph(4);
+        graph.addEdge(0, 1);
+        graph.addEdge(2, 0);
+        graph.addEdge(0, 2);
+        graph.addEdge(1, 2);
+        graph.addEdge(2, 3);
+        graph.addEdge(3, 3);
 
+        graph.dfs(2);
     }
 }
