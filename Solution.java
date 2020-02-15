@@ -52,6 +52,35 @@ public class Solution {
 
     }
 
+    public static class Queue<T> {
+        public Node front;
+        public Node rear;
+
+        public Queue() {
+            front = rear = null;
+        }
+
+        public void enQueue(T data) {
+            Node newNode = new Node(data);
+            if (rear == null) {
+                front = rear = temp;
+                return;
+            }
+            rear.next = newNode;
+            rear = newNode;
+        }
+
+        public T deQueue() {
+            if (front == null)
+                return new T();
+            T data = front;
+            front = front.next;
+            if (front == null)
+                rear = null;
+            return data;
+        }
+    }
+
     public static void main(String[] args) {
 
     }
