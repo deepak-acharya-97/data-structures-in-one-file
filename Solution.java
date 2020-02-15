@@ -1,22 +1,22 @@
 public class Solution {
-    public static class Node<T> {
-        public T data;
+    public static class Node {
+        public int data;
         public Node next;
 
-        public Node(T data) {
+        public Node(int data) {
             this.data = data;
             this.next = null;
         }
     }
 
-    public static class LinkedList<T> {
-        public Node<T> head;
+    public static class LinkedList {
+        public Node head;
 
         public LinkedList() {
             this.head = null;
         }
 
-        public void add(T data) {
+        public void add(int data) {
             if (head == null)
                 head = new Node(data);
             else {
@@ -27,7 +27,7 @@ public class Solution {
             }
         }
 
-        public void addFront(T data) {
+        public void addFront(int data) {
             if (head == null)
                 head = new Node(data);
             else {
@@ -37,22 +37,22 @@ public class Solution {
             }
         }
 
-        public T deleteFront() {
+        public int deleteFront() {
             if (head == null)
-                return new T();
+                return -1;
             if (head.next == null) {
-                T data = head.data;
+                int data = head.data;
                 head = null;
                 return data;
             }
-            T data = head.data;
+            int data = head.data;
             head = head.next;
             return data;
         }
 
     }
 
-    public static class Queue<T> {
+    public static class Queue {
         public Node front;
         public Node rear;
 
@@ -60,20 +60,20 @@ public class Solution {
             front = rear = null;
         }
 
-        public void enQueue(T data) {
+        public void enQueue(int data) {
             Node newNode = new Node(data);
             if (rear == null) {
-                front = rear = temp;
+                front = rear = newNode;
                 return;
             }
             rear.next = newNode;
             rear = newNode;
         }
 
-        public T deQueue() {
+        public int deQueue() {
             if (front == null)
-                return new T();
-            T data = front;
+                return -1;
+            int data = front.data;
             front = front.next;
             if (front == null)
                 rear = null;
@@ -82,17 +82,18 @@ public class Solution {
     }
 
     public static class Graph {
-        private LinkedList<Integer>[] adjacencyList;
+        private LinkedList[] adjacencyList;
         public int vertices;
 
         public Graph(int vertices) {
             this.vertices = vertices;
+            adjacencyList = new LinkedList[vertices];
             this.initialiseAdjacencyList();
         }
 
         private void initialiseAdjacencyList() {
             for (int i = 0; i < this.vertices; i++)
-                this.adjacencyList[i] = new LinkedList<>();
+                this.adjacencyList[i] = new LinkedList();
         }
 
         public void addEdge(int src, int dest) {
@@ -108,7 +109,8 @@ public class Solution {
         private void dfsUtil(int src, boolean[] visited) {
             visited[src] = true;
             System.out.println(src);
-            Node<Integer> currentNodeHead = adjacencyList[src];
+            LinkedList adjacents = adjacencyList[src];
+            Node currentNodeHead = adjacents.head;
             while (currentNodeHead != null) {
                 int current = currentNodeHead.data;
                 if (visited[current] == false)
