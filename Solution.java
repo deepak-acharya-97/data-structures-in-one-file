@@ -81,6 +81,27 @@ public class Solution {
         }
     }
 
+    public static class Graph {
+        private LinkedList<Integer>[] adjacencyList;
+        public int vertices;
+
+        public Graph(int vertices) {
+            this.vertices = vertices;
+            this.initialiseAdjacencyList();
+        }
+
+        private void initialiseAdjacencyList() {
+            for (int i = 0; i < this.vertices; i++)
+                this.adjacencyList[i] = new LinkedList<>();
+        }
+
+        public void addEdge(int src, int dest) {
+            this.adjacencyList[src].add(dest);
+            // this.adjacencyList[dest].add(src); // in case of undirected graph
+        }
+
+    }
+
     public static void main(String[] args) {
 
     }
